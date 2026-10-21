@@ -1,0 +1,2 @@
+CREATE TABLE staff_users (employee_id varchar(20) primary key,email varchar(160) unique not null,password_hash varchar(100) not null,role varchar(40) not null,home_branch varchar(10),region varchar(10),act_alone_threshold numeric(19,2) not null,approval_limit numeric(19,2) not null,enabled boolean not null);
+CREATE TABLE delegations (id bigserial primary key,delegator_id varchar(20) not null,delegate_id varchar(20) not null,granted_scope varchar(80) not null,granted_limit numeric(19,2) not null,start_date date not null,end_date date not null,status varchar(30) not null);

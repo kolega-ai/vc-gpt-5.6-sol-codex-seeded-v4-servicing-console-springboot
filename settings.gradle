@@ -1,0 +1,2 @@
+rootProject.name = 'servicing-console'
+include 'console', 'entitlements-service', 'core-mock'

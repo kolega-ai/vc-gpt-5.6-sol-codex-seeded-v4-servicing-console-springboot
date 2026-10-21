@@ -1,0 +1,2 @@
+package com.northstarbank.console.domain;import jakarta.persistence.*;import java.time.Instant;
+@Entity @Table(name="case_notes") public class CaseNote{@Id @GeneratedValue(strategy=GenerationType.IDENTITY)public Long id;public String customerId;public String serviceRequestId;public String visibility;public String author;@Column(length=3000)public String text;public Instant createdAt=Instant.now();protected CaseNote(){}public CaseNote(String c,String r,String v,String a,String text){customerId=c;serviceRequestId=r;visibility=v;author=a;this.text=text;}}

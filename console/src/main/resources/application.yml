@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 12h
+      cookie:
+        name: SERVICING_SESSION
+        http-only: false
+        same-site: strict
+        secure: "${COOKIE_SECURE:false}"
+  error:
+    include-message: never
+    include-stacktrace: never
+    whitelabel:
+      enabled: false
+spring:
+  datasource: {url: "${DB_URL:jdbc:postgresql://localhost:5432/servicing?currentSchema=console}", username: "${DB_USER:servicing}", password: "${DB_PASSWORD:local-dev-only}"}
+  jpa: {hibernate: {ddl-auto: validate}, open-in-view: false}
+  flyway: {create-schemas: true, schemas: console}
+  servlet.multipart: {max-file-size: 5MB, max-request-size: 6MB}
+  thymeleaf.cache: false
+logging.level.root: DEBUG
+management.endpoints.enabled-by-default: true
+management.endpoints.web.exposure.include: "*"
+management.server.port: 8090
+app:
+  entitlements-url: ${ENTITLEMENTS_URL:http://localhost:8081}
+  core-url: ${CORE_URL:http://localhost:8082}
+  internal-secret: ${INTERNAL_CLIENT_SECRET:local-console-client-secret}
+  upload-dir: ${UPLOAD_DIR:./uploads}
+  statement-dir: ${STATEMENT_DIR:./statements}

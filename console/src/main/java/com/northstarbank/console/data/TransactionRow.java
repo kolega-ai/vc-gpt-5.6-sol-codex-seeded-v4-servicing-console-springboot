@@ -1,0 +1,1 @@
+package com.northstarbank.console.data;import java.math.BigDecimal;import java.time.LocalDate;public record TransactionRow(long id,String accountNumber,String customerId,String branch,LocalDate bookingDate,BigDecimal amount,String currency,String description,String channel,String reference){}

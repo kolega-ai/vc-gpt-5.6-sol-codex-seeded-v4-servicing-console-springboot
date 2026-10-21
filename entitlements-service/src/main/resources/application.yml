@@ -1,0 +1,18 @@
+server:
+  port: 8081
+  error: {include-message: never, include-stacktrace: never}
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/servicing?currentSchema=entitlements}
+    username: ${DB_USER:servicing}
+    password: ${DB_PASSWORD:local-dev-only}
+  jpa:
+    hibernate: {ddl-auto: validate}
+    open-in-view: false
+  flyway:
+    create-schemas: true
+    schemas: entitlements
+management.endpoints.enabled-by-default: false
+app:
+  token-secret: ${TOKEN_SECRET:local-development-signing-key-change-me-32chars}
+  internal-secret: ${INTERNAL_CLIENT_SECRET:local-console-client-secret}

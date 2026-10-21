@@ -1,0 +1,2 @@
+package com.northstarbank.console.domain;import jakarta.persistence.*;import java.time.Instant;
+@Entity @Table(name="notifications") public class Notification{@Id @GeneratedValue(strategy=GenerationType.IDENTITY)public Long id;public String recipient;public String message;public String link;public boolean read;public Instant createdAt=Instant.now();protected Notification(){}public Notification(String r,String m,String l){recipient=r;message=m;link=l;}}

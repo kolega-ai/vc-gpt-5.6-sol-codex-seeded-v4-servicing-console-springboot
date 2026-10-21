@@ -1,0 +1,5 @@
+CREATE TABLE customers(id varchar(10) primary key,full_name varchar(160),phone varchar(40),email varchar(160),branch varchar(10),vulnerable boolean not null);
+CREATE TABLE accounts(account_number varchar(30) primary key,customer_id varchar(10) not null,product varchar(80),currency varchar(3),status varchar(30),balance numeric(19,2));
+CREATE TABLE transactions(id bigserial primary key,account_number varchar(30) not null,booking_date date not null,amount numeric(19,2) not null,currency varchar(3),description varchar(255),channel varchar(40),reference varchar(80));
+CREATE TABLE cards(id varchar(50) primary key,account_number varchar(30),customer_id varchar(10),masked_number varchar(30),status varchar(40),block_reason varchar(160),replacement_of varchar(50));
+CREATE TABLE core_postings(id bigserial primary key,request_id varchar(80) not null,operation varchar(40) not null,customer_id varchar(10),amount numeric(19,2),core_reference varchar(100),posted_at timestamptz,unique(request_id,operation));

@@ -1,0 +1,2 @@
+package com.northstarbank.console.data;import java.util.*;import org.apache.ibatis.annotations.*;
+@Mapper public interface TransactionTextMapper{@Select("SELECT id,account_number,customer_id,branch,booking_date,amount,currency,description,channel,reference FROM transaction_search WHERE customer_id=#{customerId} AND (LOWER(description) LIKE LOWER(CONCAT('%',#{term},'%')) OR LOWER(reference) LIKE LOWER(CONCAT('%',#{term},'%'))) ORDER BY booking_date DESC LIMIT 200")List<TransactionRow> search(@Param("customerId")String customerId,@Param("term")String term);}

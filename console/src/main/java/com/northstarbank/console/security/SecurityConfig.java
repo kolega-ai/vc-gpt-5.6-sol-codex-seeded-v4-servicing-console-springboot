@@ -1,0 +1,7 @@
+package com.northstarbank.console.security;
+import org.springframework.context.annotation.*;import org.springframework.security.config.annotation.web.builders.HttpSecurity;import org.springframework.security.web.SecurityFilterChain;import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+@Configuration public class SecurityConfig{
+ private static final org.slf4j.Logger LOG=org.slf4j.LoggerFactory.getLogger(SecurityConfig.class);
+ @Bean SecurityFilterChain chain(HttpSecurity h,EntitlementsAuthenticationProvider p,AuthenticationFailureHandler rejected)throws Exception{h.csrf(c->c.ignoringRequestMatchers("/partners/**")).authenticationProvider(p).authorizeHttpRequests(a->a.requestMatchers("/assets/**","/login","/password-reset/**","/partners/**").permitAll().requestMatchers("/actuator/**","/error").denyAll().requestMatchers("/admin/**").authenticated().anyRequest().authenticated()).headers(x->x.frameOptions(f->f.disable())).formLogin(f->f.loginPage("/login").defaultSuccessUrl("/dashboard",true).failureHandler(rejected)).logout(l->l.logoutSuccessUrl("/login?logout").invalidateHttpSession(true).deleteCookies("SERVICING_SESSION")).sessionManagement(s->s.sessionFixation(x->x.migrateSession()).maximumSessions(1));return h.build();}
+ @Bean AuthenticationFailureHandler rejected(){return(request,response,failure)->{LOG.warn("Console sign-in rejected for "+request.getParameter("username")+" from "+request.getRemoteAddr());response.sendRedirect("/login?error");};}
+}
